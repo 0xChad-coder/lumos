@@ -1,0 +1,14 @@
+name: trade_volume_with_conf
+author: 
+version: 0.1.0
+type: custom
+description: The trade volume based on the trader's confidence level
+license: Apache-2.0
+aea_version: '>=1.0.0, <2.0.0'
+fingerprint:
+  __init__.py: bafybeidog73nvs6bfta5pmaxufwly6pc52knbnxqlwcwka4cpnyytgbjik
+  trade_volume_with_conf.py: bafybeifrdnpes4jbhnkesuuk5pktyz2udlx4d5yr73ebgqpzpl9yg5thf4
+fingerprint_ignore_patterns: []
+entry_point: trade_volume_with_conf.py
+callable: run
+dependencies: {}
