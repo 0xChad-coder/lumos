@@ -1,3 +1,58 @@
+# Risk-Adjusted Kelly Bet Strategy
+
+This strategy calculates a **risk-adjusted bet amount** based on a trader's bankroll, win probability, risk tolerance, and market conditions (similar to the **Kelly Criterion**). Unlike the traditional Kelly approach, this strategy does not factor in confidence levels and instead focuses solely on the financial and risk aspects of the bet.
+
+## Features
+
+- **Risk-Adjusted Betting**: Scales the bet amount according to the trader's risk tolerance, ensuring the bet size aligns with their willingness to take on risk.
+- **Kelly Bet Calculation**: Uses the Kelly Criterion formula to determine the ideal bet size, adjusted for bankroll, win probability, and market conditions.
+- **Market Conditions**: Factors in the number of tokens in the pool and the associated bet fee.
+- **Floor Balance Protection**: Ensures a minimum balance remains in the bankroll for safety purposes.
+- **Dynamic Bet Sizing**: Adjusts bet size based on bankroll and market conditions, preventing overexposure to risk.
+
+## Required Fields
+
+### 1. `bet_kelly_fraction`
+The fraction of the calculated Kelly bet amount to use when placing the bet. For example, a value of `0.5` would indicate using 50% of the Kelly bet amount.
+
+### 2. `bankroll`
+The total amount of funds available for betting. This is the trader's entire available bankroll.
+
+### 3. `win_probability`
+The probability of winning the bet, represented as a float between `0.0` and `1.0`.
+
+### 4. `selected_type_tokens_in_pool`
+The number of tokens of the selected type in the pool.
+
+### 5. `other_tokens_in_pool`
+The number of other tokens in the pool. This helps adjust the bet size based on market liquidity.
+
+### 6. `bet_fee`
+The fee charged for placing the bet, expressed as a decimal. For example, a fee of `0.05` means 5% of the bet amount is charged as a fee.
+
+### 7. `floor_balance`
+The minimum balance that must remain in the bankroll for safety. This ensures that the trader always has a base amount of funds available, even if they lose a bet.
+
+### 8. `risk_tolerance`
+A float between `0.0` and `1.0`, representing the trader's risk tolerance. A higher value indicates a willingness to take higher risks, while a lower value means the trader is more risk-averse.
+
+## Optional Field
+
+### 1. `max_bet`
+The maximum allowable bet amount. This is used to cap the bet size, preventing the trader from placing a bet beyond their desired limit.
+
+## Process
+
+### 1. **Risk Adjustment**:
+   - The available bankroll is adjusted based on the trader's risk tolerance. If the trader is risk-averse, the adjusted bankroll is smaller, resulting in a lower bet size.
+
+### 2. **Kelly Calculation**:
+   - The Kelly bet amount is calculated based on the adjusted bankroll and win probability. The formula used is:
+
+   ```math
+   Kelly Bet = Bankroll × Win Probability × (Selected Tokens / (Selected Tokens + Other Tokens)) - (1 - Win Probability)
+
+
 ## Trader service
 
 Trader is an autonomous service that performs **bets on existing prediction markets**. The service interacts with an [AI Mech](https://github.com/valory-xyz/mech) (a service that executes AI tasks), and its workflow is as follows:
